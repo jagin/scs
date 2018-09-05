@@ -5,12 +5,12 @@ services:
   account-scs:
     image: account-scs
     container_name: account-scs
-    env_file: .env
+    env_file: account-scs/.env
 
   home-scs:
     image: home-scs
     container_name: home-scs
-    env_file: .env
+    env_file: home-scs/.env
 
   items-mongodb:
     image: mongo:3
@@ -23,14 +23,13 @@ services:
       - items-mongodb
     environment:
       - DATABASE_URL=mongodb://items-mongodb:27017
-      - DATABASE_NAME=items-db
-    env_file: .env
+    env_file: items-scs/.env
 
   scs-proxy:
-    image: scs-proxy
+    image: scs
     build:
       context: .
-    container_name: scs-proxy
+    container_name: scs
     ports:
       - "$NGINX_PORT:$NGINX_PORT"
     depends_on:
