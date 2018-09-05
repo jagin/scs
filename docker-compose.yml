@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+  account-scs:
+    image: account-scs
+    container_name: account-scs
+    env_file: .env
+
+  home-scs:
+    image: home-scs
+    container_name: home-scs
+    env_file: .env
+
+  items-mongodb:
+    image: mongo:3
+    container_name: items-mongodb
+
+  items-scs:
+    image: items-scs
+    container_name: items-scs
+    depends_on:
+      - items-mongodb
+    environment:
+      - DATABASE_URL=mongodb://items-mongodb:27017
+      - DATABASE_NAME=items-db
+    env_file: .env
+
+  scs-proxy:
+    image: scs-proxy
+    build:
+      context: .
+    container_name: scs-proxy
+    ports:
+      - "$NGINX_PORT:$NGINX_PORT"
+    depends_on:
+      - home-scs
+      - account-scs
+      - items-scs
+    env_file: .env
