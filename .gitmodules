@@ -1,0 +1,9 @@
+[submodule "home-scs"]
+	path = home-scs
+	url = https://github.com/jagin/home-scs.git
+[submodule "account-scs"]
+	path = account-scs
+	url = https://github.com/jagin/account-scs.git
+[submodule "items-scs"]
+	path = items-scs
+	url = https://github.com/jagin/items-scs.git
