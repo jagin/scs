@@ -25,13 +25,13 @@ services:
       - DATABASE_URL=mongodb://items-mongodb:27017
     env_file: items-scs/.env
 
-  scs-proxy:
+  scs:
     image: scs
     build:
       context: .
     container_name: scs
     ports:
-      - "$NGINX_PORT:$NGINX_PORT"
+      - "${NGINX_PORT}:${NGINX_PORT}"
     depends_on:
       - home-scs
       - account-scs
